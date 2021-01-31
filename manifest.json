@@ -3,6 +3,8 @@
     "name": "Ajax Interceptor",
     "version": "0.9",
     "description": "To modify response text of ajax requests",
+
+    // 允许的权限
     "permissions": [
         "declarativeContent",
         "storage",
@@ -14,6 +16,8 @@
         "webRequest",
         "webRequestBlocking"
     ],
+
+    // 常驻的js，会伴随整个浏览器生命周期
     "background": {
         "scripts": [
             "background.js"
@@ -39,6 +43,9 @@
             "all_frames": true
         }
     ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+
+    // 页面中跑的js
     "web_accessible_resources": [
         "pageScripts/defaultSettings.js",
         "pageScripts/main.js",

@@ -1,3 +1,4 @@
+(function () {
 
 // 命名空间
 let ajax_interceptor_qoweifjqon = {
@@ -58,6 +59,12 @@ let ajax_interceptor_qoweifjqon = {
                         modifyResponse();
                     }
                     this.onload && this.onload.apply(this, args);
+                }
+                continue;
+            } else if (attr === 'send') { // 给send方法套一层，记住请求发出的的数据
+                this.send = (...args) => {
+                    this._reqData = args;
+                    xhr.send(...args);
                 }
                 continue;
             }
@@ -153,6 +160,7 @@ let ajax_interceptor_qoweifjqon = {
     },
 }
 
+// 监听message事件，获取
 window.addEventListener("message", function (event) {
     const data = event.data;
 
@@ -168,3 +176,4 @@ window.addEventListener("message", function (event) {
         window.fetch = ajax_interceptor_qoweifjqon.originalFetch;
     }
 }, false);
+})()
